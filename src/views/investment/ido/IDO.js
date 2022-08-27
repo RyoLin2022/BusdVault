@@ -14,8 +14,8 @@ const IDO = () => {
         </CCardHeader>
         <CCardBody>
           <p>
-            Documentation and examples for Bootstrap typography, including global settings,
-            headings, body text, lists, and more.
+            The BUSD Vault is an innovative token that having a vault. <br />
+            The vault provides a least price of the token such that decreases the chance of dumping.
           </p>
           <table className="table">
             <thead>
