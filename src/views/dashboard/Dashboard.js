@@ -1,136 +1,136 @@
 import React from 'react'
-import { CButton, CButtonGroup, CCard, CCardBody, CCol, CRow } from '@coreui/react'
-import { CChartLine } from '@coreui/react-chartjs'
-import { getStyle, hexToRgba } from '@coreui/utils'
-import CIcon from '@coreui/icons-react'
-import { cilCloudDownload } from '@coreui/icons'
+import { CCardHeader, CCard, CCardBody, CCol, CRow, CWidgetStatsA } from '@coreui/react'
+import './Dashboard.css'
 
-import WidgetsDropdown from '../widgets/WidgetsDropdown'
+let wsETH = new WebSocket('wss://stream.binance.com:9443/ws/ethusdt@trade')
+let wsBNB = new WebSocket('wss://stream.binance.com:9443/ws/bnbusdt@trade')
+let wsBTC = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@trade')
+let wsBUSD = new WebSocket('wss://stream.binance.com:9443/ws/busdusdt@trade')
 
-let ws = new WebSocket('wss://stream.binance.com:9443/ws/ethusdt@trade')
-let stockPriceElement = document.getElementById('stock-price')
-ws.onmessage = (event) => {
-  let stockObject = JSON.parse(event.data)
-  stockPriceElement.innerText = stockObject.p
-  console.log(stockObject.p)
-}
 const Dashboard = () => {
-  const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
+  wsETH.onmessage = (event) => {
+    let ethPriceElement = document.getElementById('eth-price')
+    let ethObject = JSON.parse(event.data)
+    let priceETH = parseFloat(ethObject.p).toFixed(2)
+    ethPriceElement.innerText = priceETH
+  }
+  wsBNB.onmessage = (event1) => {
+    let bnbPriceElement = document.getElementById('bnb-price')
+    let bnbObject = JSON.parse(event1.data)
+    let priceBNB = parseFloat(bnbObject.p).toFixed(2)
+    bnbPriceElement.innerText = priceBNB
+  }
+  wsBTC.onmessage = (event2) => {
+    let btcPriceElement = document.getElementById('btc-price')
+    let btcObject = JSON.parse(event2.data)
+    let priceBTC = parseFloat(btcObject.p).toFixed(2)
+    btcPriceElement.innerText = priceBTC
+  }
+  wsBUSD.onmessage = (event3) => {
+    let busdPriceElement = document.getElementById('busd-price')
+    let busdObject = JSON.parse(event3.data)
+    let priceBUSD = parseFloat(busdObject.p).toFixed(2)
+    busdPriceElement.innerText = priceBUSD
+  }
+  async function chartBNB() {
+    let chart = document.getElementById('dexscreener-embed')
+    let chartName = document.getElementById('ChartName')
+    chartName.innerText = 'BNB Price Chart'
+    chart.innerHTML =
+      '<iframe src="https://dexscreener.com/bsc/0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16?embed=1&trades=0"></iframe>'
+  }
+  async function chartETH() {
+    let chart = document.getElementById('dexscreener-embed')
+    let chartName = document.getElementById('ChartName')
+    chartName.innerText = 'ETH Price Chart'
+    chart.innerHTML =
+      '<iframe src="https://dexscreener.com/bsc/0x531FEbfeb9a61D948c384ACFBe6dCc51057AEa7e?embed=1&trades=0"></iframe>'
+  }
+  async function chartBTC() {
+    let chart = document.getElementById('dexscreener-embed')
+    let chartName = document.getElementById('ChartName')
+    chartName.innerText = 'BTC Price Chart'
+    chart.innerHTML =
+      '<iframe src="https://dexscreener.com/bsc/0x3F803EC2b816Ea7F06EC76aA2B6f2532F9892d62?embed=1&trades=0"></iframe>'
+  }
 
   return (
     <>
-      <WidgetsDropdown />
-      <CCard className="mb-4">
+      <CCard>
+        <CCardHeader>
+          <CRow>
+            <p>
+              Note: The price data is from Binance, and the chart is from dexscreener <br />
+              You can see the chart when clicking on each column
+            </p>
+          </CRow>
+        </CCardHeader>
         <CCardBody>
           <CRow>
-            <CCol sm={5}>
-              <h4 id="traffic" className="card-title mb-0">
-                Traffic
-              </h4>
-              <div className="small text-medium-emphasis">January - July 2021</div>
+            <CCol sm={6} lg={3} onClick={chartETH}>
+              <CWidgetStatsA
+                className="mb-4"
+                color="primary"
+                value={
+                  <>
+                    <p id="eth-price">0</p>
+                    {''}
+                  </>
+                }
+                title="ETH"
+              />
             </CCol>
-            <CCol sm={7} className="d-none d-md-block">
-              <CButton color="primary" className="float-end">
-                <CIcon icon={cilCloudDownload} />
-              </CButton>
-              <CButtonGroup className="float-end me-3">
-                {['Day', 'Month', 'Year'].map((value) => (
-                  <CButton
-                    color="outline-secondary"
-                    key={value}
-                    className="mx-0"
-                    active={value === 'Month'}
-                  >
-                    {value}
-                  </CButton>
-                ))}
-              </CButtonGroup>
+            <CCol sm={6} lg={3} onClick={chartBNB}>
+              <CWidgetStatsA
+                id="BNB"
+                className="mb-4"
+                color="info"
+                value={
+                  <>
+                    <p id="bnb-price">0</p>
+                    {''}
+                  </>
+                }
+                title="BNB"
+              />
+            </CCol>
+            <CCol sm={6} lg={3} onClick={chartBTC}>
+              <CWidgetStatsA
+                className="mb-4"
+                color="warning"
+                value={
+                  <>
+                    <p id="btc-price">0</p>
+                    {''}
+                  </>
+                }
+                title="BTC"
+              />
+            </CCol>
+            <CCol sm={6} lg={3}>
+              <CWidgetStatsA
+                className="mb-4"
+                color="danger"
+                value={
+                  <>
+                    <p id="busd-price">0</p>
+                    {''}
+                  </>
+                }
+                title="BUSD"
+              />
             </CCol>
           </CRow>
-          <CChartLine
-            style={{ height: '300px', marginTop: '40px' }}
-            data={{
-              labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-              datasets: [
-                {
-                  label: 'My First dataset',
-                  backgroundColor: hexToRgba(getStyle('--cui-info'), 10),
-                  borderColor: getStyle('--cui-info'),
-                  pointHoverBackgroundColor: getStyle('--cui-info'),
-                  borderWidth: 2,
-                  data: [
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                  ],
-                  fill: true,
-                },
-                {
-                  label: 'My Second dataset',
-                  backgroundColor: 'transparent',
-                  borderColor: getStyle('--cui-success'),
-                  pointHoverBackgroundColor: getStyle('--cui-success'),
-                  borderWidth: 2,
-                  data: [
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                    random(50, 200),
-                  ],
-                },
-                {
-                  label: 'My Third dataset',
-                  backgroundColor: 'transparent',
-                  borderColor: getStyle('--cui-danger'),
-                  pointHoverBackgroundColor: getStyle('--cui-danger'),
-                  borderWidth: 1,
-                  borderDash: [8, 5],
-                  data: [65, 65, 65, 65, 65, 65, 65],
-                },
-              ],
-            }}
-            options={{
-              maintainAspectRatio: false,
-              plugins: {
-                legend: {
-                  display: false,
-                },
-              },
-              scales: {
-                x: {
-                  grid: {
-                    drawOnChartArea: false,
-                  },
-                },
-                y: {
-                  ticks: {
-                    beginAtZero: true,
-                    maxTicksLimit: 5,
-                    stepSize: Math.ceil(250 / 5),
-                    max: 250,
-                  },
-                },
-              },
-              elements: {
-                line: {
-                  tension: 0.4,
-                },
-                point: {
-                  radius: 0,
-                  hitRadius: 10,
-                  hoverRadius: 4,
-                  hoverBorderWidth: 3,
-                },
-              },
-            }}
-          />
+          <CRow>
+            <CCol sm={5}>
+              <h4 id="ChartName" className="card-title mb-0">
+                BNB Price Chart
+              </h4>
+            </CCol>
+            <div id="dexscreener-embed">
+              <iframe src="https://dexscreener.com/bsc/0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16?embed=1&trades=0"></iframe>
+            </div>
+          </CRow>
         </CCardBody>
       </CCard>
     </>

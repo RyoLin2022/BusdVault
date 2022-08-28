@@ -15,7 +15,6 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cibTelegram, cibTwitter, cilMenu } from '@coreui/icons'
-
 import { AppBreadcrumb } from './index'
 let currentAccount = null
 const AppHeader = () => {
@@ -30,11 +29,11 @@ const AppHeader = () => {
       })
       setWalletAddress(accounts[0])
       currentAccount = accounts[0]
+      localStorage.setItem('Account', currentAccount)
       console.log(currentAccount)
     } catch (error) {
       console.log('error connecting')
     }
-
     //Check if Metamask Exist
     if (window.ethereum) {
       console.log('detected')
@@ -69,13 +68,10 @@ const AppHeader = () => {
         >
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>
-        {/* <CHeaderBrand className="mx-auto d-md-none" to="/">
-          <CIcon icon={logo} height={48} alt="Logo" />
-        </CHeaderBrand> */}
         <CHeaderNav className="d-none d-md-flex me-auto">
           <CNavItem>
             <CNavLink to="/dashboard" component={NavLink}>
-              Dashboard
+              BUSD Vault
             </CNavLink>
           </CNavItem>
         </CHeaderNav>

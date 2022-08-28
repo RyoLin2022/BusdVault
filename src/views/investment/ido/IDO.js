@@ -1,88 +1,149 @@
-import React from 'react'
-import { CCard, CCardHeader, CCardBody } from '@coreui/react'
-import { DocsLink } from 'src/components'
-import { AppHeader } from 'src/components'
-let currentAccount
+import React, { useState } from 'react'
+import { CCard, CCardHeader, CCardBody, CButton } from '@coreui/react'
+import './IDO.css'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+let currentAccount = localStorage.getItem('Account')
 const IDO = () => {
-  console.log(currentAccount)
+  const [copied, setCopied] = useState(false)
+  let refLink = null
+  let refAccount = null
+  let BusdContract = '0xdc483bBb5acC6b09ec2b9115Ef9ab3f4DD39C315'
+  let IDOContract = ''
+  function alertCopied() {
+    alert('Invitation link has been copied!!')
+  }
+  GetData()
+  async function GetData() {
+    CheckApproval()
+    GenerateLink()
+    GetRef()
+    seeRef()
+  }
+  /*------------------Checck the allowance for staking contract-----------------*/
+  /*------------------Checck the allowance for staking contract-----------------*/
+  /*------------------Checck the allowance for staking contract-----------------*/
+  async function CheckApproval() {
+    let inputdata =
+      '0xdd62ed3e' +
+      '000000000000000000000000' +
+      currentAccount.substring(2, currentAccount.length) +
+      '000000000000000000000000' +
+      IDOContract.substring(2, IDOContract.length)
+    let accAllowance = await window.ethereum.request({
+      method: 'eth_call',
+      params: [
+        {
+          to: BusdContract,
+          data: inputdata,
+          //allowance:0xdd62ed3e
+          //BalanceOF + staking contract address
+        },
+        'latest',
+      ],
+    })
+    let idoButton = document.getElementById('idoButton')
+    if (accAllowance > 0) {
+      idoButton.innerText = 'Make IDO'
+    }
+  }
+  async function seeRef() {
+    let RefAddr = localStorage.getItem('RefAccount')
+    console.log('seeRef : ' + RefAddr)
+  }
+  async function GenerateLink() {
+    let link = window.location.href
+    //link = 'DNS server/#/investment/ido?invitedBy=' + currentAccount
+    if (link.includes('tokenpocket')) link = link.substring(0, link.length - 23)
+    if (link.length > 60) link = link.substring(0, link.length - 42) + currentAccount
+    else link = link + '?invitedBy=' + currentAccount
+    refLink = link
+  }
+  async function GetRef() {
+    let link = window.location.href
+    if (link.includes('?invitedBy=')) {
+      console.log(true)
+      let start = link.indexOf('=')
+      refAccount = link.substring(start + 1, start + 43)
+      console.log('refAccount : ' + refAccount)
+    } else {
+      refAccount = '0x0000000000000000000000000000000000000000'
+      console.log('refAccount : ' + refAccount)
+    }
+    localStorage.setItem('RefAccount', refAccount)
+  }
+
   return (
     <>
       <CCard className="mb-4">
-        <CCardHeader>
-          <h1>IDO</h1>
-          <DocsLink href="https://coreui.io/docs/content/typography/" />
+        <CCardHeader className="sameRow">
+          <h1 className="sameRowLeft">IDO Dashboard</h1>
+          <CButton color="primary" variant="outline" className="sameRowRight" id="idoButton">
+            Approve BUSD
+          </CButton>
         </CCardHeader>
         <CCardBody>
           <p>
-            The BUSD Vault is an innovative token that having a vault. <br />
-            The vault provides a least price of the token such that decreases the chance of dumping.
+            The BUSD Vault is an innovative token having a vault. <br />
+            The vault provides a base price of the token which decreases the chance of dumping.
           </p>
           <table className="table">
             <thead>
               <tr>
-                <th>Heading</th>
-                <th>Example</th>
+                <th>
+                  <span className="h5">IDO progress</span>
+                </th>
+                <th>
+                  <span className="h5" id="idoCABalance">
+                    0
+                  </span>
+                </th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>
-                  <p>
-                    <code className="highlighter-rouge">&lt;h1&gt;&lt;/h1&gt;</code>
-                  </p>
+                  <span className="h5">IDO per person</span>
                 </td>
                 <td>
-                  <span className="h1">h1. Bootstrap heading</span>
+                  <span className="h5">100 BUSD</span>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <p>
-                    <code className="highlighter-rouge">&lt;h2&gt;&lt;/h2&gt;</code>
-                  </p>
+                  <span className="h5">Your Balance</span>
                 </td>
                 <td>
-                  <span className="h2">h2. Bootstrap heading</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <p>
-                    <code className="highlighter-rouge">&lt;h3&gt;&lt;/h3&gt;</code>
-                  </p>
-                </td>
-                <td>
-                  <span className="h3">h3. Bootstrap heading</span>
+                  <span className="h5" id="idoAccBalance">
+                    0
+                  </span>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <p>
-                    <code className="highlighter-rouge">&lt;h4&gt;&lt;/h4&gt;</code>
-                  </p>
+                  <span className="h5">Your Referrals</span>
                 </td>
                 <td>
-                  <span className="h4">h4. Bootstrap heading</span>
+                  <span className="h5">0</span>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <p>
-                    <code className="highlighter-rouge">&lt;h5&gt;&lt;/h5&gt;</code>
-                  </p>
+                  <span className="h5">Your Earnings</span>
                 </td>
                 <td>
-                  <span className="h5">h5. Bootstrap heading</span>
+                  <span className="h5">0</span>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <p>
-                    <code className="highlighter-rouge">&lt;h6&gt;&lt;/h6&gt;</code>
-                  </p>
+                  <span className="h5">Your Referral Link</span>
                 </td>
                 <td>
-                  <span className="h6">h6. Bootstrap heading</span>
+                  <CopyToClipboard text={refLink} onCopy={() => setCopied(true)}>
+                    <CButton color="primary" id="inviteLink" onClick={alertCopied}>
+                      Copy Link
+                    </CButton>
+                  </CopyToClipboard>
                 </td>
               </tr>
             </tbody>
@@ -90,59 +151,16 @@ const IDO = () => {
         </CCardBody>
       </CCard>
       <CCard className="mb-4">
-        <CCardHeader>Headings</CCardHeader>
+        <CCardHeader>
+          <h1 className="sameRowLeft">Mechanism</h1>
+        </CCardHeader>
         <CCardBody>
           <p>
-            <code className="highlighter-rouge">.h1</code> through
-            <code className="highlighter-rouge">.h6</code>
-            classes are also available, for when you want to match the font styling of a heading but
-            cannot use the associated HTML element.
+            Total Tax : 7%
+            <br />
+            Marketing : 2% <br /> BUSD Vault : 2% <br /> LP Reward : 3%
           </p>
-          <div className="bd-example">
-            <p className="h1">h1. Bootstrap heading</p>
-            <p className="h2">h2. Bootstrap heading</p>
-            <p className="h3">h3. Bootstrap heading</p>
-            <p className="h4">h4. Bootstrap heading</p>
-            <p className="h5">h5. Bootstrap heading</p>
-            <p className="h6">h6. Bootstrap heading</p>
-          </div>
         </CCardBody>
-      </CCard>
-      <CCard className="mb-4">
-        <div className="card-header">Display headings</div>
-        <div className="card-body">
-          <p>
-            Traditional heading elements are designed to work best in the meat of your page content.
-            When you need a heading to stand out, consider using a <strong>display heading</strong>
-            —a larger, slightly more opinionated heading style.
-          </p>
-          <div className="bd-example bd-example-type">
-            <table className="table">
-              <tbody>
-                <tr>
-                  <td>
-                    <span className="display-1">Display 1</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span className="display-2">Display 2</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span className="display-3">Display 3</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span className="display-4">Display 4</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
       </CCard>
       <CCard className="mb-4">
         <CCardHeader>Inline text elements</CCardHeader>
@@ -177,50 +195,6 @@ const IDO = () => {
             <p>
               <em>This line rendered as italicized text.</em>
             </p>
-          </div>
-        </CCardBody>
-      </CCard>
-      <CCard className="mb-4">
-        <CCardHeader>Description list alignment</CCardHeader>
-        <CCardBody>
-          <p>
-            Align terms and descriptions horizontally by using our grid system’s predefined classes
-            (or semantic mixins). For longer terms, you can optionally add a{' '}
-            <code className="highlighter-rouge">.text-truncate</code> class to truncate the text
-            with an ellipsis.
-          </p>
-          <div className="bd-example">
-            <dl className="row">
-              <dt className="col-sm-3">Description lists</dt>
-              <dd className="col-sm-9">A description list is perfect for defining terms.</dd>
-
-              <dt className="col-sm-3">Euismod</dt>
-              <dd className="col-sm-9">
-                <p>
-                  Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.
-                </p>
-                <p>Donec id elit non mi porta gravida at eget metus.</p>
-              </dd>
-
-              <dt className="col-sm-3">Malesuada porta</dt>
-              <dd className="col-sm-9">Etiam porta sem malesuada magna mollis euismod.</dd>
-
-              <dt className="col-sm-3 text-truncate">Truncated term is truncated</dt>
-              <dd className="col-sm-9">
-                Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-                fermentum massa justo sit amet risus.
-              </dd>
-
-              <dt className="col-sm-3">Nesting</dt>
-              <dd className="col-sm-9">
-                <dl className="row">
-                  <dt className="col-sm-4">Nested definition list</dt>
-                  <dd className="col-sm-8">
-                    Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc.
-                  </dd>
-                </dl>
-              </dd>
-            </dl>
           </div>
         </CCardBody>
       </CCard>

@@ -1,0 +1,13 @@
+.sameRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.sameRowLeft {
+    flex: 4;
+}
+
+.sameRowRight {
+    flex: 1;
+    margin-right: 20px;
+}
