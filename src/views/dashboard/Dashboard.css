@@ -1,4 +1,7 @@
-#dexscreener-embed{position:relative;width:100%;padding-bottom:75%;}
+#dexscreener-embed{position:relative;width:100%;padding-bottom:40%;}
+@media screen and (max-width:960px){
+    #dexscreener-embed{position:relative;width:100%;padding-bottom:100%;}
+}
 #dexscreener-embed iframe{position:absolute;width:100%;height:50vh;top:0;left:0;border:0;}
 
 .getBorder {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { ethers } from 'ethers'
 import { NavLink } from 'react-router-dom'
@@ -19,6 +19,20 @@ import { AppBreadcrumb } from './index'
 let currentAccount = null
 const AppHeader = () => {
   const dispatch = useDispatch()
+  requestAccount()
+  useEffect(() => {
+    console.log('inside')
+    changingAccount()
+  })
+
+  async function changingAccount() {
+    if (window.ethereum) {
+      window.ethereum.on('accountsChanged', () => {
+        requestAccount()
+      })
+    }
+  }
+
   const sidebarShow = useSelector((state) => state.sidebarShow)
   const [walletAddress, setWalletAddress] = useState('')
   async function requestAccount() {
@@ -28,9 +42,14 @@ const AppHeader = () => {
         method: 'eth_requestAccounts',
       })
       setWalletAddress(accounts[0])
+      sessionStorage.setItem('Account', currentAccount)
       currentAccount = accounts[0]
-      localStorage.setItem('Account', currentAccount)
       console.log(currentAccount)
+      var btnConnect = document.getElementById('connect-btn')
+      let lengthAcc = currentAccount.length
+      btnConnect.value = currentAccount
+      btnConnect.innerText =
+        currentAccount.substring(0, 4) + '...' + currentAccount.substring(lengthAcc - 4, lengthAcc)
     } catch (error) {
       console.log('error connecting')
     }
@@ -47,12 +66,6 @@ const AppHeader = () => {
     if (typeof window.ethereum !== 'undefined') {
       await requestAccount()
       const provider = new ethers.providers.Web3Provider(window.ethereum)
-
-      var btnConnect = document.getElementById('connect-btn')
-      let lengthAcc = currentAccount.length
-      btnConnect.value = currentAccount
-      btnConnect.innerText =
-        currentAccount.substring(0, 4) + '...' + currentAccount.substring(lengthAcc - 4, lengthAcc)
       alert('Wallet connected successfully!')
     } else {
       alert('Please install an injected Web3 wallet')

@@ -3,11 +3,26 @@
     flex-direction: row;
 }
 
-.sameRowLeft {
-    flex: 4;
+.sameRowRight {
+    width: 150px;
 }
 
-.sameRowRight {
+#approve,
+#makeido,
+#makeclaim,
+#makecheck {
     flex: 1;
-    margin-right: 20px;
+    margin-left: 50px;
+}
+
+@media screen and (max-width:960px) {
+    .sameRowRight {
+        width: 150px;
+    }
+    #approve,
+    #makeido,
+    #makeclaim {
+        flex: 1;
+        margin-left: 10px;
+    }
 }
