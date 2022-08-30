@@ -10,27 +10,35 @@ let wsBUSD = new WebSocket('wss://stream.binance.com:9443/ws/busdusdt@trade')
 const Dashboard = () => {
   wsETH.onmessage = (event) => {
     let ethPriceElement = document.getElementById('eth-price')
-    let ethObject = JSON.parse(event.data)
-    let priceETH = parseFloat(ethObject.p).toFixed(2)
-    ethPriceElement.innerText = priceETH
+    if (event.data !== null) {
+      let ethObject = JSON.parse(event.data)
+      let priceETH = parseFloat(ethObject.p).toFixed(2)
+      ethPriceElement.innerText = priceETH
+    }
   }
   wsBNB.onmessage = (event1) => {
     let bnbPriceElement = document.getElementById('bnb-price')
-    let bnbObject = JSON.parse(event1.data)
-    let priceBNB = parseFloat(bnbObject.p).toFixed(2)
-    bnbPriceElement.innerText = priceBNB
+    if (event1.data !== null) {
+      let bnbObject = JSON.parse(event1.data)
+      let priceBNB = parseFloat(bnbObject.p).toFixed(2)
+      bnbPriceElement.innerText = priceBNB
+    }
   }
   wsBTC.onmessage = (event2) => {
     let btcPriceElement = document.getElementById('btc-price')
-    let btcObject = JSON.parse(event2.data)
-    let priceBTC = parseFloat(btcObject.p).toFixed(2)
-    btcPriceElement.innerText = priceBTC
+    if (event2.data !== null) {
+      let btcObject = JSON.parse(event2.data)
+      let priceBTC = parseFloat(btcObject.p).toFixed(2)
+      btcPriceElement.innerText = priceBTC
+    }
   }
   wsBUSD.onmessage = (event3) => {
     let busdPriceElement = document.getElementById('busd-price')
-    let busdObject = JSON.parse(event3.data)
-    let priceBUSD = parseFloat(busdObject.p).toFixed(2)
-    busdPriceElement.innerText = priceBUSD
+    if (event3.data !== null) {
+      let busdObject = JSON.parse(event3.data)
+      let priceBUSD = parseFloat(busdObject.p).toFixed(2)
+      busdPriceElement.innerText = priceBUSD
+    }
   }
   async function chartBNB() {
     let chart = document.getElementById('dexscreener-embed')
