@@ -13,7 +13,7 @@ const Dashboard = () => {
     if (event.data !== null) {
       let ethObject = JSON.parse(event.data)
       let priceETH = parseFloat(ethObject.p).toFixed(2)
-      ethPriceElement.innerText = priceETH
+      if (priceETH !== null) ethPriceElement.innerText = priceETH
     }
   }
   wsBNB.onmessage = (event1) => {
@@ -21,7 +21,7 @@ const Dashboard = () => {
     if (event1.data !== null) {
       let bnbObject = JSON.parse(event1.data)
       let priceBNB = parseFloat(bnbObject.p).toFixed(2)
-      bnbPriceElement.innerText = priceBNB
+      if (priceBNB !== null) bnbPriceElement.innerText = priceBNB
     }
   }
   wsBTC.onmessage = (event2) => {
@@ -29,7 +29,7 @@ const Dashboard = () => {
     if (event2.data !== null) {
       let btcObject = JSON.parse(event2.data)
       let priceBTC = parseFloat(btcObject.p).toFixed(2)
-      btcPriceElement.innerText = priceBTC
+      if (priceBTC !== null) btcPriceElement.innerText = priceBTC
     }
   }
   wsBUSD.onmessage = (event3) => {
@@ -37,7 +37,7 @@ const Dashboard = () => {
     if (event3.data !== null) {
       let busdObject = JSON.parse(event3.data)
       let priceBUSD = parseFloat(busdObject.p).toFixed(2)
-      busdPriceElement.innerText = priceBUSD
+      if (priceBUSD !== null) busdPriceElement.innerText = priceBUSD
     }
   }
   async function chartBNB() {

@@ -4,6 +4,9 @@ const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 //Investment
 const IDO = React.lazy(() => import('./views/investment/ido/IDO'))
 const Vault = React.lazy(() => import('./views/investment/vault/Vault'))
+//NFT
+const Mint = React.lazy(() => import('./views/nft/mint/Mint'))
+const NFTProfile = React.lazy(() => import('./views/nft/nftprofile/NFTProfile'))
 //Theme
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
@@ -58,8 +61,11 @@ const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/investment', name: 'Investment', element: IDO, exact: true },
-  { path: '/investment/IDO', name: 'IDO', element: IDO },
-  { path: '/investment/Vault', name: 'Vault', element: Vault },
+  { path: '/investment/ido', name: 'IDO', element: IDO },
+  { path: '/investment/vault', name: 'Vault', element: Vault },
+  { path: '/nft', name: 'NFT', element: Mint, exact: true },
+  { path: '/nft/mint', name: 'Mint', element: Mint },
+  { path: '/nft/nftprofile', name: 'NFTProfile', element: NFTProfile },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },

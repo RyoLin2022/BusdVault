@@ -29,6 +29,7 @@ const AppHeader = () => {
     if (window.ethereum) {
       window.ethereum.on('accountsChanged', () => {
         requestAccount()
+        window.location.reload()
       })
     }
   }
@@ -44,7 +45,6 @@ const AppHeader = () => {
       setWalletAddress(accounts[0])
       sessionStorage.setItem('Account', currentAccount)
       currentAccount = accounts[0]
-      console.log(currentAccount)
       var btnConnect = document.getElementById('connect-btn')
       let lengthAcc = currentAccount.length
       btnConnect.value = currentAccount

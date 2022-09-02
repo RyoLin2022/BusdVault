@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import { CRow, CCard, CCardHeader, CCardBody, CButton, CCol } from '@coreui/react'
-import './IDO.css'
+import './Mint.css'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 let currentAccount = sessionStorage.getItem('Account')
 let accAllowance = Number(0)
-const IDO = () => {
+const Mint = () => {
   const [copied, setCopied] = useState(false)
   let refLink = null
   let refAccount = null
   let BusdContract = '0x4F3775617aB942b4395d8A3A2e80ffDb08028c13'
   let IDOContract = '0x13E8d3BC55BA39b121cdBF679b5a9FA09B6daA9F'
-  console.log('IDO page' + currentAccount)
+  console.log('Mint page' + currentAccount)
   function alertCopied() {
     alert('Invitation link has been copied!!')
   }
@@ -88,9 +88,9 @@ const IDO = () => {
     }
   }
 
-  /*------------------Checck the allowance for IDO contract-----------------*/
-  /*------------------Checck the allowance for IDO contract-----------------*/
-  /*------------------Checck the allowance for IDO contract-----------------*/
+  /*------------------Checck the allowance for Mint contract-----------------*/
+  /*------------------Checck the allowance for Mint contract-----------------*/
+  /*------------------Checck the allowance for Mint contract-----------------*/
   async function CheckApproval() {
     setAccountCorrectly()
     console.log('Checking Approval' + accAllowance)
@@ -205,7 +205,7 @@ const IDO = () => {
                   onClick={makeIDO}
                   hidden
                 >
-                  Make IDO
+                  Make Mint
                 </CButton>
               </div>
               <div id="makeclaim">
@@ -225,7 +225,7 @@ const IDO = () => {
         </CCardHeader>
         <CCardBody>
           <CRow>
-            <h1 className="sameRowLeft">IDO Dashboard</h1>
+            <h1 className="sameRowLeft">Mint Dashboard</h1>
           </CRow>
           <p>
             The BUSD Vault is an innovative token having a vault. <br />
@@ -235,7 +235,7 @@ const IDO = () => {
             <thead>
               <tr>
                 <th>
-                  <span className="h5">IDO progress</span>
+                  <span className="h5">Mint progress</span>
                 </th>
                 <th>
                   <span className="h5" id="idoCABalance">
@@ -247,7 +247,7 @@ const IDO = () => {
             <tbody>
               <tr>
                 <td>
-                  <span className="h5">IDO per person</span>
+                  <span className="h5">Mint per person</span>
                 </td>
                 <td>
                   <span className="h5">100 BUSD</span>
@@ -315,4 +315,4 @@ const IDO = () => {
   )
 }
 
-export default IDO
+export default Mint
