@@ -31,12 +31,12 @@ const _nav = [
       color: 'info',
     },
   },
-  {
-    component: CNavItem,
-    name: 'Dashboard2',
-    to: '/dashboard2',
-    icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavItem,
+  //   name: 'Dashboard2',
+  //   to: '/dashboard2',
+  //   icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
+  // },
   {
     component: CNavTitle,
     name: 'Investment',
