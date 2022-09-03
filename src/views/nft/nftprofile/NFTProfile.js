@@ -58,8 +58,11 @@ const NFTProfile = () => {
       <button onClick={connect1}>Check All of My NFT</button>
       <br />
       <br />
-      <button onClick={connect2}>Check Particular NFT</button>
-      <input id="specificNFT" placeholder="Put NFT CA right here"></input>
+      <p>
+        <button onClick={connect2}>Check Particular NFT</button>
+        NFT CA:
+        <input id="specificNFT"></input>
+      </p>
       <NFTContainer nfts={nfts} />
     </div>
   )
