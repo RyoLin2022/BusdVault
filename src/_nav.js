@@ -63,12 +63,12 @@ const _nav = [
     to: '/nft/mint',
     icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
   },
-  // {
-  //   component: CNavItem,
-  //   name: 'NFTProfile',
-  //   to: '/nft/nftprofile',
-  //   icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
-  // },
+  {
+    component: CNavItem,
+    name: 'NFTProfile',
+    to: '/nft/nftprofile',
+    icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
+  },
   {
     component: CNavTitle,
     name: 'Theme',
