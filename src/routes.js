@@ -1,13 +1,13 @@
 import React from 'react'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
-// const Dashboard2 = React.lazy(() => import('./views/dashboard2/Dashboard2'))
+const Dashboard2 = React.lazy(() => import('./views/dashboard2/Dashboard2'))
 //Investment
 const IDO = React.lazy(() => import('./views/investment/ido/IDO'))
 const Vault = React.lazy(() => import('./views/investment/vault/Vault'))
 //NFT
 const Mint = React.lazy(() => import('./views/nft/mint/Mint'))
-const NFTProfile = React.lazy(() => import('./views/nft/nftprofile/NFTProfile'))
+// const NFTProfile = React.lazy(() => import('./views/nft/nftprofile/NFTProfile'))
 //Theme
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
@@ -59,13 +59,13 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
-  // { path: '/dashboard2', name: 'Dashboard2', element: Dashboard2 },
+  { path: '/dashboard2', name: 'Dashboard2', element: Dashboard2 },
   { path: '/investment', name: 'Investment', element: IDO, exact: true },
   { path: '/investment/ido', name: 'IDO', element: IDO },
   { path: '/investment/vault', name: 'Vault', element: Vault },
   { path: '/nft', name: 'NFT', element: Mint, exact: true },
   { path: '/nft/mint', name: 'Mint', element: Mint },
-  { path: '/nft/nftprofile', name: 'NFTProfile', element: NFTProfile },
+  // { path: '/nft/nftprofile', name: 'NFTProfile', element: NFTProfile },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
