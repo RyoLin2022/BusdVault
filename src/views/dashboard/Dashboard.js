@@ -8,15 +8,6 @@ let wsBTC = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@trade')
 let wsBUSD = new WebSocket('wss://stream.binance.com:9443/ws/busdusdt@trade')
 
 const Dashboard = () => {
-  async function getData() {
-    const response = await fetch(
-      `https://api.dexscreener.io/latest/dex/tokens/0xad6742a35fb341a9cc6ad674738dd8da98b94fb1`,
-    )
-    console.log(response)
-    const data = await response.json()
-    console.log(data)
-  }
-  getData()
   wsETH.onmessage = (event) => {
     let ethPriceElement = document.getElementById('eth-price')
     if (event.data !== null) {
