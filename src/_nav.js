@@ -32,6 +32,12 @@ const _nav = [
     },
   },
   {
+    component: CNavItem,
+    name: 'Dashboard2',
+    to: '/dashboard2',
+    icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
+  },
+  {
     component: CNavTitle,
     name: 'Investment',
   },

@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
+const Dashboard2 = React.lazy(() => import('./views/dashboard2/Dashboard2'))
 //Investment
 const IDO = React.lazy(() => import('./views/investment/ido/IDO'))
 const Vault = React.lazy(() => import('./views/investment/vault/Vault'))
@@ -60,6 +61,7 @@ const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
+  { path: '/dashboard2', name: 'Dashboard2', element: Dashboard2 },
   { path: '/investment', name: 'Investment', element: IDO, exact: true },
   { path: '/investment/ido', name: 'IDO', element: IDO },
   { path: '/investment/vault', name: 'Vault', element: Vault },

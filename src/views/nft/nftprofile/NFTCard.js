@@ -24,9 +24,9 @@ const NFTCard = ({ nft }) => {
           link = meta
           nft.metadata = link
         }
+      } else {
+        link = 'https://gateway.pinata.cloud/ipfs/QmPhgiUmGp7tdqnyFgUfeyWEzaHyvavPkyCYcNgvT1fkCT'
       }
-    } else {
-      link = ''
     }
   }
   getMeta()
