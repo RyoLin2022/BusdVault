@@ -40,8 +40,8 @@ const AppHeader = () => {
         method: 'eth_requestAccounts',
       })
       setWalletAddress(accounts[0])
-      sessionStorage.setItem('Account', currentAccount)
       currentAccount = accounts[0]
+      sessionStorage.setItem('Account', currentAccount)
       var btnConnect = document.getElementById('connect-btn')
       let lengthAcc = currentAccount.length
       btnConnect.value = currentAccount
