@@ -19,23 +19,20 @@ import { AppBreadcrumb } from './index'
 let currentAccount = null
 const AppHeader = () => {
   const dispatch = useDispatch()
-  requestAccount()
-  useEffect(() => {
-    console.log('inside')
-    changingAccount()
-  })
-
+  const [walletAddress, setWalletAddress] = useState('')
   async function changingAccount() {
     if (window.ethereum) {
       window.ethereum.on('accountsChanged', () => {
         requestAccount()
-        window.location.reload()
       })
     }
   }
 
+  useEffect(() => {
+    changingAccount()
+  }, [walletAddress])
+
   const sidebarShow = useSelector((state) => state.sidebarShow)
-  const [walletAddress, setWalletAddress] = useState('')
   async function requestAccount() {
     console.log('Requesting account...')
     try {
