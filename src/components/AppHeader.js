@@ -58,7 +58,6 @@ const AppHeader = () => {
       console.log('detected')
     } else {
       console.log('not detected')
-      alert('Please Install Metamask')
     }
   }
 
