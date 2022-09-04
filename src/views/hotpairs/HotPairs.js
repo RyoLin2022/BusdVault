@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { CCardHeader, CCard, CCardBody, CCol, CRow, CWidgetStatsA, CButton } from '@coreui/react'
-import './Dashboard2.css'
+import './HotPairs.css'
 
 const Dashboard = () => {
   /*-----useState settings-------*/
@@ -18,6 +18,10 @@ const Dashboard = () => {
   let token2url = `https://dexscreener.com/bsc/${token2}?embed=1&trades=0`
   let token3url = `https://dexscreener.com/bsc/${token3}?embed=1&trades=0`
   let token4url = `https://dexscreener.com/bsc/${token4}?embed=1&trades=0`
+  let lastPriceToken1
+  let lastPriceToken2
+  let lastPriceToken3
+  let lastPriceToken4
   getDatas()
   async function getDatas() {
     getData()
@@ -28,7 +32,6 @@ const Dashboard = () => {
   async function getData() {
     const response = await fetch(`https://api.dexscreener.io/latest/dex/tokens/${token1}`)
     const data = await response.json()
-    console.log(data)
     setToken1Data(data.pairs[0])
     setData()
   }
@@ -36,6 +39,7 @@ const Dashboard = () => {
     let tokenprice = document.getElementById('token1-price')
     let tokenname = document.getElementById('token1-name')
     tokenprice.innerText = token1Data.priceUsd
+    console.log(token1Data.priceUsd)
     tokenname.innerText = token1Data.baseToken.symbol
   }
   async function getData2() {
@@ -47,8 +51,11 @@ const Dashboard = () => {
   async function setData2() {
     let tokenprice = document.getElementById('token2-price')
     let tokenname = document.getElementById('token2-name')
-    tokenprice.innerText = token2Data.priceUsd
-    tokenname.innerText = token2Data.baseToken.symbol
+    if (token2Data.priceUsd !== lastPriceToken2) {
+      lastPriceToken2 = token2Data.priceUsd
+      tokenprice.innerText = token2Data.priceUsd
+      tokenname.innerText = token2Data.baseToken.symbol
+    }
   }
   async function getData3() {
     const response = await fetch(`https://api.dexscreener.io/latest/dex/tokens/${token3}`)
@@ -65,7 +72,6 @@ const Dashboard = () => {
   async function getData4() {
     const response = await fetch(`https://api.dexscreener.io/latest/dex/tokens/${token4}`)
     const data = await response.json()
-    console.log(data)
     setToken4Data(data.pairs[0])
     setData4()
   }
@@ -95,16 +101,27 @@ const Dashboard = () => {
     let htmlString = '<iframe src=' + `'${token4url}'` + '>/iframe>'
     chart.innerHTML = htmlString
   }
-
+  async function searchToken() {
+    let CA = document.getElementById('tokenCA')
+    let CAStr = String(CA.value)
+    let CAStrLink = `https://dexscreener.com/bsc/${CAStr}?embed=1&trades=0`
+    let chart = document.getElementById('dexscreener-embed')
+    let htmlString = '<iframe src=' + `'${CAStrLink}'` + '>/iframe>'
+    chart.innerHTML = htmlString
+  }
   return (
     <>
       <CCard>
         <CCardHeader>
           <CRow>
-            <p>
-              Here, we show the hot pairs <br />
-              50% of the income of advertising will be used to buyback our token
-            </p>
+            <CCol>
+              <input id="tokenCA" placeholder="Search Token"></input>
+            </CCol>
+            <CCol>
+              <CButton onClick={searchToken}>Search</CButton>
+            </CCol>
+            <CCol></CCol>
+            <CCol></CCol>
           </CRow>
         </CCardHeader>
         <CCardBody>

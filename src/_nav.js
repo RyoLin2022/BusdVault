@@ -2,6 +2,7 @@ import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {
   cilBank,
+  cilBarChart,
   cilBell,
   cilCalculator,
   cilChartPie,
@@ -14,6 +15,7 @@ import {
   cilPuzzle,
   cilSpeedometer,
   cilStar,
+  cilThumbUp,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -33,9 +35,23 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Dashboard2',
-    to: '/dashboard2',
-    icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
+    name: 'HotPairs',
+    to: '/hotpairs',
+    icon: <CIcon icon={cilThumbUp} customClassName="nav-icon" />,
+    badge: {
+      color: 'info',
+      text: 'Hot!!',
+    },
+  },
+  {
+    component: CNavItem,
+    name: 'Search Token',
+    to: '/tokensearch',
+    icon: <CIcon icon={cilBarChart} customClassName="nav-icon" />,
+    badge: {
+      color: 'info',
+      text: 'Hot!!',
+    },
   },
   {
     component: CNavTitle,

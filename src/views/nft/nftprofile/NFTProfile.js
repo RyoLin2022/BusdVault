@@ -1,4 +1,4 @@
-import { Wallet } from 'ethers'
+import { CButton, CCol, CRow } from '@coreui/react'
 import React, { useEffect, useState } from 'react'
 import NFTContainer from './NFTContainer'
 import './NFTProfile.css'
@@ -46,7 +46,6 @@ const NFTProfile = () => {
       console.log(data)
       setNfts(data.result)
     }
-    debugger
   }
 
   useEffect(() => {
@@ -55,11 +54,20 @@ const NFTProfile = () => {
 
   return (
     <div className="NFTProfile">
-      <button onClick={connect1}>Check All of My NFT</button>
+      <CRow>
+        <CCol>
+          <CButton color="primary" id="checkAll" onClick={connect1}>
+            Check All of My NFT
+          </CButton>
+        </CCol>
+        <CCol>
+          <CButton color="primary" id="checkParticular" onClick={connect2}>
+            Check Particular NFT
+          </CButton>
+          <input id="specificNFT" placeholder="Put NFT CA right here"></input>
+        </CCol>
+      </CRow>
       <br />
-      <br />
-      <button onClick={connect2}>Check Particular NFT</button>
-      <input id="specificNFT" placeholder="Put NFT CA right here"></input>
       <NFTContainer nfts={nfts} />
     </div>
   )
